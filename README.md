@@ -41,7 +41,9 @@ To run this project locally, follow these steps:
 ### 2. Installation
 
 git clone https://github.com/javier-m2306/BorderHack.git
+
 cd BorderHack
+
 pip install -r requirements.txt
 
 ### 3. Initialization & Execution
