@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card stealth-card p-4">
+    <h2>Select Your Items</h2>
+    <p class="text-muted">Please select up to 5 essential items for your weekly allocation.</p>
+    
+    <form method="POST">
+        <div class="list-group mb-3">
+            {% for item in food %}
+            <label class="list-group-item d-flex justify-content-between align-items-center">
+                {{ item }}
+                <input class="form-check-input me-1 food-check" type="checkbox" name="items" value="{{ item }}">
+            </label>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary w-100" id="confirmBtn">Confirm Order</button>
+    </form>
+</div>
+
+<script>
+    // Frontend Logic for the 5-item limit
+    const checks = document.querySelectorAll('.food-check');
+    checks.forEach(check => {
+        check.addEventListener('change', () => {
+            const count = document.querySelectorAll('.food-check:checked').length;
+            if (count > 5) {
+                alert("To ensure enough for everyone, please limit your selection to 5 items.");
+                check.checked = false;
+            }
+        });
+    });
+</script>
+{% endblock %}

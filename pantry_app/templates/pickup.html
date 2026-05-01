@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center mt-5">
+    <div class="card stealth-card p-5">
+        <h3>Your Pickup ID</h3>
+        <p>Show this code at the pantry shelf. No ID check required.</p>
+        <div class="display-1 fw-bold text-primary">{{ qr }}</div>
+        <hr>
+        <p class="small text-muted">This code expires once items are collected.</p>
+    </div>
+</div>
+{% endblock %}
