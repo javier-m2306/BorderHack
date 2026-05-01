@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-4xl mx-auto mt-8">
+    <!-- Header Section -->
+    <div class="mb-10 text-center md:text-left">
+        <h1 class="text-5xl font-black uppercase tracking-tighter leading-none mb-2">Build Your Bag</h1>
+        <p class="text-xl text-gray-500 font-bold uppercase tracking-tight">Select up to 5 items for your weekly allocation</p>
+    </div>
+
+    <!-- Inventory Grid -->
+    <form action="/checkout" method="POST" class="space-y-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {% for item in food %}
+            <label class="relative flex items-center p-6 border-2 border-gray-100 rounded-xl cursor-pointer hover:border-blue-600 hover:bg-blue-50 transition-all group">
+                <input type="checkbox" name="items" value="{{ item }}" class="food-check w-8 h-8 border-2 border-gray-300 rounded text-blue-600 focus:ring-blue-500">
+                
+                <div class="ml-6">
+                    <span class="block text-2xl font-black uppercase tracking-tight group-hover:text-blue-900">{{ item }}</span>
+                    <span class="text-sm text-gray-400 font-bold uppercase">In Stock</span>
+                </div>
+
+                <!-- Circular visual hint -->
+                <div class="ml-auto w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center group-hover:bg-blue-100 transition">
+                    <span class="text-xl">📦</span>
+                </div>
+            </label>
+            {% endfor %}
+        </div>
+
+        <!-- Sticky Bottom Action Bar -->
+        <div class="sticky bottom-8 bg-white border-4 border-black p-6 rounded-xl shadow-2xl flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="text-left">
+                <p id="item-counter" class="text-2xl font-black uppercase tracking-tighter">0 / 5 Items Selected</p>
+                <p class="text-sm text-gray-500 font-bold uppercase">Equitable Distribution Limit</p>
+            </div>
+            <button type="submit" class="w-full md:w-auto bg-blue-600 text-white px-12 py-4 text-2xl font-black uppercase rounded hover:bg-blue-700 transition transform active:scale-95">
+                Confirm Order
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    const checks = document.querySelectorAll('.food-check');
+    const counter = document.getElementById('item-counter');
+
+    checks.forEach(check => {
+        check.addEventListener('change', () => {
+            const count = document.querySelectorAll('.food-check:checked').length;
+            
+            if (count > 5) {
+                alert("To ensure enough for everyone, please limit your selection to 5 items.");
+                check.checked = false;
+            } else {
+                counter.innerText = `${count} / 5 Items Selected`;
+            }
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="flex flex-col md:flex-row gap-12 items-start mt-10 mb-20">
+    <!-- Left Side: Location 22222 -->
+    <div class="flex-1 space-y-6">
+        <h1 id="hero-title" class="text-6xl font-black uppercase leading-none tracking-tighter transition-colors duration-500">UTEP MAIN CAMPUS</h1>
+        <div class="text-xl text-gray-700">
+            <p id="hero-address">Union Building East, Room 101</p>
+            <!-- RE-ADDED THIS ID SO THE SCRIPT DOESN'T CRASH -->
+            <p id="hero-cross" class="text-gray-400 italic font-bold uppercase">Mesa & University</p>
+        </div>
+        
+        <a id="hero-map" href="https://maps.google.com" target="_blank" class="text-blue-600 font-bold underline decoration-2 underline-offset-4">Get Directions ></a>
+        
+        <div class="flex items-center gap-3 font-bold py-4 text-blue-900">
+            <span>🎒</span>
+            <span class="uppercase tracking-wide">Student Pickup Portal</span>
+        </div>
+    
+        <div class="pt-4">
+            <a href="{{ url_for('build_list') }}" class="block w-full bg-blue-600 text-white text-center py-5 text-2xl font-black uppercase rounded shadow-xl hover:bg-blue-700 transition transform active:scale-95">
+                Order Online
+            </a>
+        </div>
+    </div>
+
+    <!-- Right Side: Hours Card -->
+    <div class="w-full md:w-96 bg-white border-2 border-gray-100 shadow-2xl rounded-xl p-8">
+        <div class="flex items-center justify-between mb-6 border-b border-gray-100 pb-4">
+            <h3 class="font-black uppercase text-xl tracking-tight text-black">Pantry Hours</h3>
+            <div class="flex items-center gap-2">
+                <span class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+                <span class="text-green-600 font-bold text-sm uppercase">Open Now</span>
+            </div>
+        </div>
+        <div class="space-y-2">
+            <p class="text-3xl font-black text-gray-800">9:00 AM</p>
+            <p class="text-gray-500 font-medium italic">Monday — Friday</p>
+        </div>
+    </div>
+</div>
+
+<!-- Discover More Locations Section -->
+<div class="border-t-4 border-black pt-12 mb-20 text-black">
+    <div class="flex justify-between items-end mb-8">
+        <h2 class="text-4xl font-black uppercase tracking-tighter">Discover More Locations</h2>
+        <span class="text-gray-400 font-bold uppercase text-sm">4 Nearby Found</span>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <!-- EPCC Location -->
+        <div class="group border-2 border-gray-100 p-8 rounded-2xl hover:border-blue-600 hover:shadow-2xl transition-all bg-white">
+            <h3 class="text-2xl font-black uppercase mb-1 group-hover:text-blue-600">EPCC Valle Verde</h3>
+            <p class="text-gray-500 font-bold text-xs uppercase mb-6 tracking-widest">919 Hunter Dr • (915) 831-2000</p>
+            <button onclick="switchLocation('EPCC Valle Verde', '919 Hunter Dr', 'Hunter & North Loop', 'https://goo.gl/maps/example1')" 
+                class="w-full py-4 border-4 border-black font-black uppercase rounded shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-black hover:text-white transition-all active:translate-y-1 active:shadow-none">
+                Select Location
+            </button>
+        </div>
+
+        <!-- Kelly Center Location -->
+        <div class="group border-2 border-gray-100 p-8 rounded-2xl hover:border-blue-600 hover:shadow-2xl transition-all bg-white">
+            <h3 class="text-2xl font-black uppercase mb-1 group-hover:text-blue-600">Kelly Memorial</h3>
+            <p class="text-gray-500 font-bold text-xs uppercase mb-6 tracking-widest">915 N Florence St • (915) 533-1314</p>
+            <button onclick="switchLocation('Kelly Memorial', '915 N Florence St', 'Florence & Arizona', 'https://maps.app.goo.gl/k7vR7B2j5M9L')" 
+                class="w-full py-4 border-4 border-black font-black uppercase rounded shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-black hover:text-white transition-all active:translate-y-1 active:shadow-none">
+                Select Location
+            </button>
+        </div>
+
+        <!-- Opportunity Center -->
+        <div class="group border-2 border-gray-100 p-8 rounded-2xl hover:border-blue-600 hover:shadow-2xl transition-all bg-white">
+            <h3 class="text-2xl font-black uppercase mb-1 group-hover:text-blue-600">Opportunity Center</h3>
+            <p class="text-gray-500 font-bold text-xs uppercase mb-6 tracking-widest">1208 Myrtle Ave • (915) 577-0069</p>
+            <button onclick="switchLocation('Opportunity Center', '1208 Myrtle Ave', 'Myrtle & Octavia', 'https://maps.app.goo.gl/v9K8Y7X4Z2W1')" 
+                class="w-full py-4 border-4 border-black font-black uppercase rounded shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-black hover:text-white transition-all active:translate-y-1 active:shadow-none">
+                Select Location
+            </button>
+        </div>
+
+        <!-- El Pasoans Fighting Hunger -->
+        <div class="group border-2 border-gray-100 p-8 rounded-2xl hover:border-blue-600 hover:shadow-2xl transition-all bg-white">
+            <h3 class="text-2xl font-black uppercase mb-1 group-hover:text-blue-600">EP Fighting Hunger</h3>
+            <p class="text-gray-500 font-bold text-xs uppercase mb-6 tracking-widest">9541 Plaza Cir • (915) 298-0353</p>
+            <button onclick="switchLocation('EP Fighting Hunger', '9541 Plaza Cir', 'Plaza Cir & Pan American', 'https://maps.app.goo.gl/f8G4D3H2S1K')" 
+                class="w-full py-4 border-4 border-black font-black uppercase rounded shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-black hover:text-white transition-all active:translate-y-1 active:shadow-none">
+                Select Location
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function switchLocation(name, address, cross, mapLink) {
+    // 1. Update the content
+    document.getElementById('hero-title').innerText = name.toUpperCase();
+    document.getElementById('hero-address').innerText = address;
+    document.getElementById('hero-cross').innerText = cross;
+    document.getElementById('hero-map').href = mapLink;
+
+    // 2. Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // 3. Visual feedback
+    const title = document.getElementById('hero-title');
+    title.classList.add('text-blue-600');
+    setTimeout(() => {
+        title.classList.remove('text-blue-600');
+    }, 500);
+}
+</script>
+{% endblock %}
