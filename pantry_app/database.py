@@ -1,4 +1,12 @@
 import sqlite3
+import qrcode 
+
+DB_NAME = "pantry_app.db"
+
+def generate_qrcode(qr_value):
+    img = qrcode.make(qr_value)
+    img.save(f"{qr_value}.png")
+
 
 DB_NAME = "pantry_app.db"
 
@@ -207,6 +215,7 @@ def get_bag_by_qr(qr_code):
     """Look up a bag and its contents by QR code (used at checkout)."""
     conn = get_connection()
     cursor = conn.cursor()
+    print("Looking for QR:", qr_code)
     cursor.execute("""
         SELECT b.id, b.qr_code, a.name AS student_name, a.number
         FROM bag b
@@ -242,12 +251,17 @@ if __name__ == "__main__":
     # Create an account (auto-creates grocery list)
     a_id = make_new_account("S001", "student@utep.edu", "Alex Rivera")
 
+    
+
     # Student builds their grocery list
     add_food_to_list(a_id, "Rice")
     add_food_to_list(a_id, "Pasta")
     print("Grocery list:", get_grocery_list(a_id))
 
     # Pantry prepares the bag and generates QR
+    qr_code = "QR-S001-001"
+    generate_qrcode(qr_code)
+    bag_id = prepare_bag(p_id, a_id, qr_code)
     bag_id = prepare_bag(p_id, a_id, qr_code="QR-S001-001")
     print("Bag created, id:", bag_id)
 
