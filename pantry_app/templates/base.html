@@ -3,22 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ghost Pantry</title>
+    <title>Food Pantry</title>
     <!-- Bootstrap for quick, clean styling -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #f8f9fa; color: #333; }
         .stealth-card { border: none; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
     </style>
 </head>
-<body>
-    <nav class="navbar navbar-dark bg-dark mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="/">Resource Manager</a>
+<body class="bg-white text-black font-sans">
+    <!-- Clean White Header like the example -->
+    <header class="border-b border-gray-200 py-4 px-8 flex justify-between items-center bg-white sticky top-0 z-50">
+        <div class="flex items-center gap-2">
+            <div class="w-10 h-10 bg-blue-900 rounded-full flex items-center justify-center text-white font-bold">P</div>
+            <span class="text-2xl font-black uppercase tracking-tighter text-blue-900">Pantry Portal</span>
         </div>
-    </nav>
-    <div class="container">
+        <div class="flex gap-6 font-bold text-sm items-center">
+            <a href="/" class="hover:text-blue-700">MAP</a>
+            <a href="/build" class="hover:text-blue-700">ORDER</a>
+            <div class="relative">
+                <!--<span class="bg-blue-600 text-white text-xs rounded-full px-2 py-1">0</span>-->
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-12">
         {% block content %}{% endblock %}
-    </div>
+    </main>
 </body>
 </html>
