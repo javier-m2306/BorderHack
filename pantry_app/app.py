@@ -1,35 +1,48 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, session, redirect, url_for
 import uuid
-
-# --- 1. THE DATABASE BRIDGE (KEEP THIS COMMENTED OUT FOR NOW) ---
-# Once your teammate is done, you just remove the '#' from these lines.
-# from database import (
-#     init_db, make_new_account, add_food_to_list, get_grocery_list, 
-#     add_pantry, add_food_to_pantry, get_pantry_food, prepare_bag
-# )
+# Re-importing the function that was causing the "UndefinedVariable" error
+from database import generate_qrcode 
 
 app = Flask(__name__)
-app.secret_key = 'ghost_pantry_secret'
+app.secret_key = 'utep_borderhack_2026' # Essential for session management
 
-# --- 2. YOUR FRONTEND ROUTES ---
-
+# 1. State: Selecting Pantry (Map View)
 @app.route('/')
 def index():
-    # This renders your index.html (Pantry Selection state)
     return render_template('index.html')
 
-@app.route('/build')
-def build():
-    # This is "Mock Data." It lets you design build_list.html right now.
-    # We're using a list of 6 items to test your 5-item limit logic.
-    fake_inventory = ["Rice", "Pasta", "Canned Beans", "Peanut Butter", "Soap", "Milk"]
-    return render_template('build_list.html', food=fake_inventory)
+# 2. State: Build List (Inventory Selection)
+@app.route('/build', methods=['GET', 'POST'])
+def build_list():
+    if request.method == 'POST':
+        selected_items = request.form.getlist('items')
+        session['current_order'] = selected_items
+        return redirect(url_for('checkout'))
+    
+    # Static inventory for demo; real data comes from pantry_food table
+    food_inventory = ["Rice", "Beans", "Pasta", "Canned Corn", "Peanut Butter"]
+    return render_template('build_list.html', food=food_inventory)
 
-@app.route('/pickup')
-def pickup():
-    # This renders your pickup.html (QR code/Awaiting Pickup state)
-    return render_template('pickup.html', qr="GHOST-789")
+# 3. State: Secure Confirmation
+@app.route('/checkout', methods=['GET', 'POST'])
+def checkout():
+    if request.method == 'POST':
+        selected_items = request.form.getlist('items')
+        session['current_order'] = selected_items
+    return render_template('checkout.html')
+
+# 4. State: Awaiting Pickup (QR Generation)
+@app.route('/confirm', methods=['POST'])
+def confirm():
+    # 1. Create the ID
+    qr_id = str(uuid.uuid4())[:8].upper()
+    
+    # 2. CALL THE GENERATOR (This was missing in your last paste)
+    generate_qrcode(qr_id)
+    
+    # 3. Pass pickup_id so the HTML can see it
+    return render_template('pickup.html', pickup_id=qr_id)
 
 if __name__ == '__main__':
-    # We aren't calling init_db() yet because the file isn't ready
+    # Running on port 5001 for the BorderHack demo
     app.run(debug=True, port=5001)

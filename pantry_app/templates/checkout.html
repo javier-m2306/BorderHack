@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-2xl mx-auto mt-12 bg-white border-2 border-gray-100 shadow-2xl rounded-2xl overflow-hidden">
+    <!-- Progress Header -->
+    <div class="bg-blue-600 p-8 text-white">
+        <h1 class="text-4xl font-black uppercase tracking-tighter">Secure Confirmation</h1>
+        <p class="text-blue-100 font-bold uppercase text-sm tracking-widest mt-2">Final Step • Anonymized Pickup</p>
+    </div>
+
+    <form action="/confirm" method="POST" class="p-10 space-y-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+                <label class="text-xs font-black uppercase text-gray-400 tracking-widest">First Name</label>
+                <input type="text" name="first_name" required class="w-full border-b-4 border-gray-100 focus:border-blue-600 outline-none py-2 text-2xl font-bold transition-colors" placeholder="John">
+            </div>
+            <div class="space-y-2">
+                <label class="text-xs font-black uppercase text-gray-400 tracking-widest">Last Name</label>
+                <input type="text" name="last_name" required class="w-full border-b-4 border-gray-100 focus:border-blue-600 outline-none py-2 text-2xl font-bold transition-colors" placeholder="Dih">
+            </div>
+        </div>
+
+        <div class="space-y-2">
+            <label class="text-xs font-black uppercase text-gray-400 tracking-widest">Email Address</label>
+            <input type="email" name="email" required class="w-full border-b-4 border-gray-100 focus:border-blue-600 outline-none py-2 text-2xl font-bold transition-colors" placeholder="jdih@miners.utep.edu">
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-xl border-2 border-dashed border-gray-200">
+            <div class="flex items-center gap-4">
+                <span class="text-3xl">🤫</span>
+                <div>
+                    <p class="font-black uppercase tracking-tight">Dignity-First Policy</p>
+                    <p class="text-sm text-gray-500 font-medium">Your data is only used to generate your unique pickup code. No physical ID check is required at the pantry.</p>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="w-full bg-blue-600 text-white py-6 text-3xl font-black uppercase rounded-xl shadow-xl hover:bg-blue-700 transition transform active:scale-95">
+            Get My Pickup Code
+        </button>
+    </form>
+</div>
+{% endblock %}
