@@ -1,11 +1,16 @@
 import sqlite3
 import qrcode 
+import os
 
 DB_NAME = "pantry_app.db"
 
+
+
 def generate_qrcode(qr_value):
+    static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
+    os.makedirs(static_dir, exist_ok=True)
     img = qrcode.make(qr_value)
-    img.save(f"{qr_value}.png")
+    img.save(os.path.join(static_dir, f"{qr_value}.png"))
 
 
 DB_NAME = "pantry_app.db"
